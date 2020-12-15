@@ -1,9 +1,20 @@
-<a class="button load-button">Load Documents</a>
+<a class="button load-button" (click)="load()">Load Documents</a>
 <h2>Documents:</h2>
 <table>
     <thead>
     <th>id</th>
+    <th>name</th>
+    <th>created at</th>
     </thead>
+    <tbody>
+    <ng-container *ngFor="let doc of documents$ | async">
+        <tr>
+            <td>{{doc.id}}</td>
+            <td><a [routerLink]="[doc.id]">{{doc.name}}</a></td>
+            <td>{{doc.createdate}}</td>
+        </tr>
+    </ng-container>
+    </tbody>
 </table>
 
 

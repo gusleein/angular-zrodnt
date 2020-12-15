@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 
 import { Document } from '../models/document';
-import
 
 @Injectable({ providedIn: 'root' })
 export class DocumentService {
@@ -12,11 +11,12 @@ export class DocumentService {
   }
 
   getDocuments(): Observable<Document[]> {
-    return this.httpClient.get('/assets/documents.json');
+    return this.httpClient.get<Document[]>('/assets/documents.json');
   }
 
-  getDocument(id: number): Observable<Document> {
-    return this.httpClient.get('/assets/documents.json').pipe();
+  async getDocument(id: number): Promise<Document> {
+    console.log(id)
+    return (await this.getDocuments().toPromise()).find(d => d.id === id)
   }
 
 }
